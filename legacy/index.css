@@ -1613,9 +1613,9 @@ body.light-theme .tube-view-btn:hover {
 body.light-theme .tube-view-btn.active,
 [data-theme="light"] .tube-view-btn.active {
   background: #ffffff;
-  border: 0.5px solid rgba(0, 0, 0, 0.12);
   color: #111111;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 /* Category Home Sections (Under Pagination) */
@@ -3443,6 +3443,63 @@ input:checked+.age-slider:before {
   font-family: monospace;
 }
 
+/* Quick Nav Filter Pills Bar for Categories */
+.tube-cat-quick-pills-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 4px 2px 14px 2px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tube-cat-quick-pills-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.tube-cat-quick-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ccc;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.tube-cat-quick-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.tube-cat-quick-pill.active {
+  background: var(--primary-red);
+  border-color: var(--primary-red);
+  color: #000;
+}
+
+.tube-cat-quick-pill.active .tube-cat-quick-count {
+  background: rgba(0, 0, 0, 0.25);
+  color: #000;
+}
+
+.tube-cat-quick-count {
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 5px;
+  border-radius: 9999px;
+  color: #aaa;
+}
+
+
 
 /* --- MOBILE DRAWER / SIDEBAR STYLES --- */
 .tube-mobile-hamburger-btn {
@@ -3472,6 +3529,9 @@ input:checked+.age-slider:before {
   z-index: 99999;
   display: flex;
   animation: fadeIn 0.2s ease;
+  overflow: hidden !important;
+  overscroll-behavior: none;
+  touch-action: pan-y;
 }
 
 .tube-sidebar-drawer {
@@ -3486,8 +3546,11 @@ input:checked+.age-slider:before {
   -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
   border-right: 1px solid rgba(255, 255, 255, 0.10);
   overflow-y: auto;
+  overflow-x: hidden !important;
   box-shadow: 10px 0 35px rgba(0, 0, 0, 0.6);
   animation: slideInLeft 0.25s ease;
+  overscroll-behavior-x: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 body.light-theme .tube-sidebar-drawer,
@@ -3534,7 +3597,7 @@ body.light-theme .tube-sidebar-drawer,
   position: sticky;
   top: 0;
   z-index: 20;
-  margin: 0 -16px 4px -16px;
+  margin: 0;
   padding: 16px 16px 12px 16px;
   background: rgba(11, 11, 11, 0.92);
   backdrop-filter: blur(20px) saturate(180%);

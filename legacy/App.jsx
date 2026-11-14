@@ -187,6 +187,7 @@ export default function App() {
   // Pagination & data
   const [currentPageNum, setCurrentPageNum] = useState(() => getUrlState().p);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalVideosCount, setTotalVideosCount] = useState(0);
   const [videos, setVideos] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [isInitialLoadDone, setIsInitialLoadDone] = useState(false);
@@ -237,6 +238,7 @@ export default function App() {
       });
       setVideos(result.videos || []);
       setTotalPages(result.pagination?.totalPages || 1);
+      setTotalVideosCount(result.pagination?.total || 0);
     } finally {
       setIsFetching(false);
       setIsInitialLoadDone(true);
@@ -531,6 +533,20 @@ export default function App() {
                 );
               })}
             </div>
+
+            {/* Category / Search Title Heading (Clean title matching Categories page headings) */}
+            {searchQuery && (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '8px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#fff', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span>{searchQuery}</span>
+                  {!isFetching && (
+                    <span style={{ fontSize: '12px', fontWeight: 'normal', color: 'var(--primary-red)' }}>
+                      ({totalVideosCount > 0 ? totalVideosCount : videos.length})
+                    </span>
+                  )}
+                </h2>
+              </div>
+            )}
 
             {/* Video List */}
             {isFetching ? (
